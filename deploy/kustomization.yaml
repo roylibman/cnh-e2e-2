@@ -8,6 +8,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - httproute.yaml
+  - cluster.yaml
 images:
   - name: app
     newName: ghcr.io/roylibman/cnh-e2e-2
