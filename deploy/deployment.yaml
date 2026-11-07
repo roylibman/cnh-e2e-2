@@ -39,7 +39,7 @@ spec:
               memory: 256Mi
           readinessProbe:
             httpGet:
-              path: /ready
+              path: /ready-check
               port: http
             periodSeconds: 5
           livenessProbe:
