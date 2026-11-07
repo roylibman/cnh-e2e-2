@@ -15,8 +15,14 @@ const sessions = [
 ];
 
 const server = http.createServer((req, res) => {
-  const url = new URL(req.url, 'http://localhost');
-  if (url.pathname === '/healthz' || url.pathname === '/ready-check') {
+  let url;
+  try {
+    url = new URL(req.url, 'http://localhost');
+  } catch {
+    res.writeHead(400, { 'content-type': 'text/plain' });
+    return res.end('bad request\n');
+  }
+  if (url.pathname === '/healthz' || url.pathname === '/readyz') {
     res.writeHead(200, { 'content-type': 'text/plain' });
     return res.end('ok\n');
   }
@@ -27,7 +33,7 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/') {
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
     const rows = sessions.map((s) => `<li>${s.time} · ${s.room} · ${s.title}</li>`).join('');
-    return res.end(`<!doctype html><title>${team}</title><h1>${team}</h1><p>version ${version}</p><p>Ship test two</p><ul>${rows}</ul>`);
+    return res.end(`<!doctype html><title>${team}</title><h1>${team}</h1><p>version ${version}</p><ul>${rows}</ul>`);
   }
   res.writeHead(404, { 'content-type': 'text/plain' });
   res.end('not found\n');

@@ -24,12 +24,7 @@ spec:
               containerPort: 8080
           env:
             - name: TEAM_NAME
-              value: "e2e2-163841"
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: db-app
-                  key: uri
+              value: "e2e4-204041"
           resources:
             requests:
               cpu: 100m
@@ -39,7 +34,7 @@ spec:
               memory: 256Mi
           readinessProbe:
             httpGet:
-              path: /ready-check
+              path: /readyz
               port: http
             periodSeconds: 5
           livenessProbe:
