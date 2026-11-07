@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/') {
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
     const rows = sessions.map((s) => `<li>${s.time} · ${s.room} · ${s.title}</li>`).join('');
-    return res.end(`<!doctype html><title>${team}</title><h1>${team}</h1><p>version ${version}</p><p>Ship test one</p><ul>${rows}</ul>`);
+    return res.end(`<!doctype html><title>${team}</title><h1>${team}</h1><p>version ${version}</p><p>Ship test two</p><ul>${rows}</ul>`);
   }
   res.writeHead(404, { 'content-type': 'text/plain' });
   res.end('not found\n');
