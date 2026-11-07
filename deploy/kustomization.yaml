@@ -3,12 +3,12 @@
 # by hand.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: team-e2e5-232213
+namespace: team-__TEAM__
 resources:
   - deployment.yaml
   - service.yaml
   - httproute.yaml
 images:
   - name: app
-    newName: ghcr.io/roylibman/cnh-e2e-2
-    newTag: c4bd37c
+    newName: ghcr.io/OWNER/REPO
+    newTag: latest

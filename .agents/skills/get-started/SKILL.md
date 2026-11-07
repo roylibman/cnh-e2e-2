@@ -20,7 +20,7 @@ Check first, then set up. Keep replies short. At a check that fails, say in a se
 
 3. **Cluster found?** Call `list_clusters` and take the entry whose `name` is exactly `<team>`; its `id` is the `cluster` for every other call. If it's missing and so is `cnh`, the sign-in went to another organization: sign in again (`/mcp` > radar-cloud) and choose Cloud Native Hackathon. If it isn't offered, they haven't accepted the invite email yet. If `cnh` is there but `<team>` isn't, check the spelling and `https://join.cnh.radarhq.io/status/<team>`.
 
-4. **Readable?** Call `list_resources` with `kind: deployments`, `namespace: team-<team>`. If Radar refuses or can't read any namespace within a few minutes of sign-up, that's normal: access lands a minute or two after signing up. Say so, wait a minute, retry, for up to about 5 minutes. After that: check they signed in with an email the team listed, then send them to the Radar table. In Radar Cloud the same lag shows as **No Namespace Access … contact your administrator**: wait a minute and reload.
+4. **Readable?** Call `list_resources` with `kind: deployments`, `namespace: team-<team>`. If Radar refuses or can't read any namespace right after sign-up, that's normal: access lands within a minute of signing up, and Radar remembers a refusal for 2 minutes. Say so, wait 2 minutes, retry, for up to about 5 minutes. After that: check they signed in with an email the team listed, then send them to the Radar table. In Radar Cloud the same lag shows as **No Namespace Access … contact your administrator**: wait two minutes and reload.
 
 5. **The first screen.** Their cluster is the card named exactly `<team>` on Radar Cloud's Home; the rest are other teams' and the platform's (`cnh`). Call `issues` and sort it against "What every team sees" in AGENTS.md: name the known noise in a line, and point out anything else.
 
@@ -29,8 +29,8 @@ Check first, then set up. Keep replies short. At a check that fails, say in a se
 Say what's left of the list below and ask once: "Shall I set it up? I'll push to your repo and deploy through Radar." Skip what's already done (the Application `app` in `team-<team>`, `get_resource` group `argoproj.io`; `STORY.md`). When they say go, run to the end without stopping:
 
 1. If setup.sh hasn't run: `./scripts/setup.sh <team>`, then commit "Set up team <team>", `git pull --rebase`, push.
-2. Follow the `ship` skill from step 0: it waits for the build and its `deploy:` commit, checks the image is public, applies `argocd/application.yaml`, syncs, and checks that the URL shows the pushed commit.
-3. Record the "before": `get_cluster_audit` with `namespace: team-<team>`. Write `STORY.md` with a heading `## Before` (date and time, findings by severity, one line per finding: check and resource), commit and push it. Markdown alone doesn't trigger a build.
+2. Follow the `ship` skill from step 0: it waits for the build and its `deploy:` commit, applies `argocd/application.yaml`, syncs, waits for the new pods (which proves the image is public), and checks that the URL shows the pushed commit.
+3. Record the "before": `get_cluster_audit` with `namespace: team-<team>`. Write `STORY.md` with a heading `## Before` (local date and time; the link `https://app.radarhq.io/checks?scope=<cluster-id>&namespace=team-<team>`; findings by severity; one line per finding: check and resource), commit and push it. Markdown alone doesn't trigger a build.
 
 Report the URL and the version it shows.
 
