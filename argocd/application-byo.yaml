@@ -1,23 +1,23 @@
 # Only for a cluster you bring (not the one the hackathon gives you): an Argo CD
 # Application in the argocd namespace using the default project, deploying
-# deploy/ into team-e2e4-204041 (created if missing). Your cluster needs Argo CD
+# deploy/ into team-__TEAM__ (created if missing). Your cluster needs Argo CD
 # (and Argo Rollouts for examples/canary). Remove httproute.yaml from
 # deploy/kustomization.yaml first: it points at the hackathon's gateway.
 #   kubectl apply -f argocd/application-byo.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-e2e4-204041
+  name: app-__TEAM__
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/roylibman/cnh-e2e-2.git
+    repoURL: https://github.com/OWNER/REPO.git
     targetRevision: main
     path: deploy
   destination:
     server: https://kubernetes.default.svc
-    namespace: team-e2e4-204041
+    namespace: team-__TEAM__
   syncPolicy:
     automated:
       prune: true

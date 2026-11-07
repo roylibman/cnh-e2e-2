@@ -1,26 +1,16 @@
-# The Deployment from deploy/deployment.yaml as an Argo Rollouts canary.
-# Each new image goes to 25% of the pods and waits for you (or your agent)
-# to promote it, then 50% for a minute, then everything.
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: app
   labels:
     app: app
 spec:
-  # Remove this line if you turn on the HPA.
-  replicas: 4
-  revisionHistoryLimit: 3
+  # Remove this line when you turn on the HPA (examples/hpa), or Argo CD and
+  # the autoscaler will keep resetting each other.
+  replicas: 2
   selector:
     matchLabels:
       app: app
-  strategy:
-    canary:
-      steps:
-        - setWeight: 25
-        - pause: {}
-        - setWeight: 50
-        - pause: { duration: 60s }
   template:
     metadata:
       labels:
@@ -34,7 +24,7 @@ spec:
               containerPort: 8080
           env:
             - name: TEAM_NAME
-              value: "e2e4-204041"
+              value: "__TEAM__"
           resources:
             requests:
               cpu: 100m
