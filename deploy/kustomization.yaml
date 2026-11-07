@@ -9,6 +9,7 @@ resources:
   - service.yaml
   - httproute.yaml
   - postgres.yaml
+  - pdb.yaml
 images:
   - name: app
     newName: ghcr.io/roylibman/cnh-e2e-2
