@@ -16,7 +16,7 @@ const sessions = [
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
-  if (url.pathname === '/healthz' || url.pathname === '/readyz') {
+  if (url.pathname === '/healthz' || url.pathname === '/ready') {
     res.writeHead(200, { 'content-type': 'text/plain' });
     return res.end('ok\n');
   }
