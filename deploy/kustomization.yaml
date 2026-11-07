@@ -11,4 +11,4 @@ resources:
 images:
   - name: app
     newName: ghcr.io/roylibman/cnh-e2e-2
-    newTag: c2ec98e
+    newTag: 439b826
