@@ -3,14 +3,12 @@
 # by hand.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: team-gate1606-1
+namespace: team-e2e2-163841
 resources:
   - deployment.yaml
   - service.yaml
   - httproute.yaml
-  - postgres.yaml
-  - pdb.yaml
 images:
   - name: app
-    newName: ghcr.io/roylibman/cnh-e2e-2
-    newTag: 530192f
+    newName: ghcr.io/OWNER/REPO
+    newTag: latest

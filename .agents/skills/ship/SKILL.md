@@ -24,13 +24,15 @@ Skip this if `get_resource` (kind `Application`, group `argoproj.io`, name `app`
 
 Commit and push to `main`. Note the short SHA: `git rev-parse --short=7 HEAD`.
 
-The Action skips commits that only touch `*.md` or `deploy/kustomization.yaml`. Changes only under `deploy/` (other than the image) need no build, so go straight to step 3.
+The Action skips commits that only touch `*.md` or `deploy/kustomization.yaml`; for those, go straight to step 3. Every other push runs it, including one that only changes other files under `deploy/`, and it ends with a deploy commit.
 
 ## 2. Wait for the build
 
 With the GitHub CLI: `gh run list --branch main --limit 1`, then `gh run watch <id> --exit-status`. Without it: `git fetch origin` until `origin/main` has a commit `deploy: <sha> [skip ci]`.
 
-If the run failed, read `gh run view <id> --log-failed`, fix it, and push again. Then `git pull --rebase` so your copy has the bot's deploy commit before you push again.
+If the run failed, read `gh run view <id> --log-failed`, fix it, push again, and wait again.
+
+When the run is green, run `git pull --rebase` so your copy has the bot's `deploy: <sha> [skip ci]` commit. Do this after every green run, even if you have nothing else to push yet: without it, your next push is rejected.
 
 ## 3. Sync
 

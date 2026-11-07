@@ -34,7 +34,7 @@ spec:
               containerPort: 8080
           env:
             - name: TEAM_NAME
-              value: "gate1606-1"
+              value: "e2e2-163841"
           resources:
             requests:
               cpu: 100m

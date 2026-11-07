@@ -5,16 +5,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: app
-  namespace: team-gate1606-1
+  namespace: team-e2e2-163841
 spec:
-  project: team-gate1606-1
+  project: team-e2e2-163841
   source:
     repoURL: https://github.com/roylibman/cnh-e2e-2.git
     targetRevision: main
     path: deploy
   destination:
     server: https://kubernetes.default.svc
-    namespace: team-gate1606-1
+    namespace: team-e2e2-163841
   syncPolicy:
     automated:
       prune: true

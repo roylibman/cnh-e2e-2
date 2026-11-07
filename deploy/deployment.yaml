@@ -16,14 +16,6 @@ spec:
       labels:
         app: app
     spec:
-      automountServiceAccountToken: false
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: app
       containers:
         - name: app
           image: app
@@ -32,7 +24,7 @@ spec:
               containerPort: 8080
           env:
             - name: TEAM_NAME
-              value: "gate1606-1"
+              value: "e2e2-163841"
           resources:
             requests:
               cpu: 100m
@@ -42,7 +34,7 @@ spec:
               memory: 256Mi
           readinessProbe:
             httpGet:
-              path: /ready
+              path: /readyz
               port: http
             periodSeconds: 5
           livenessProbe:
@@ -53,7 +45,6 @@ spec:
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
             seccompProfile:
               type: RuntimeDefault
             capabilities:
